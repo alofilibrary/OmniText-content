@@ -1,3 +1,7 @@
+# Python bytecode is local execution residue, never source.
+__pycache__/
+*.py[cod]
+
 # Generated packs can be huge and are published as immutable GitHub Release assets.
 packs/*.otpack
 packs/*.db
