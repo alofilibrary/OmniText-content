@@ -50,6 +50,32 @@
       }
     },
     {
+      "id": "judaism-tanakh-spablm-es",
+      "status": "published",
+      "faith": "Judaism",
+      "title": "Tanakh",
+      "translation": "Santa Biblia libre para el mundo",
+      "language": "es",
+      "license": "CC0 1.0",
+      "attribution": "Santa Biblia libre para el mundo, David Williams & Michael Paul Johnson, CC0 1.0. Hebrew Bible corpus only.",
+      "upstream": {
+        "repository": "https://github.com/kahunapule/spablm",
+        "commit": "a741e2b6de48f8c08bab9e003bc4ae8f291bf99f",
+        "path": "spablm_usfm.zip (files 02-40)",
+        "licenseEvidence": "LICENSE"
+      },
+      "pack": {
+        "version": 1,
+        "sha256": "3096e8f0278d0bdc1c5de756d3643e2b7216f1be38c7bdfae671505f6b618ce6",
+        "sizeBytes": 4806507,
+        "url": "https://github.com/alofilibrary/OmniText-content/releases/download/tanakh-spablm-es-v1/judaism-tanakh-spablm-es-v1.otpack"
+      },
+      "review": {
+        "state": "approved",
+        "notes": "Validated locally and rechecked from the immutable GitHub Release asset: 39 Hebrew-Bible books, 23,145 non-empty verses, and an FTS count matching the verse count."
+      }
+    },
+    {
       "id": "christianity-santa-biblia-libre-mundo-es",
       "status": "published",
       "faith": "Christianity",
