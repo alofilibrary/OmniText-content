@@ -1,0 +1,6 @@
+# Generated packs can be huge and are published as immutable GitHub Release assets.
+packs/*.otpack
+packs/*.db
+
+# Keep the directory in Git without checking in payloads.
+!packs/.gitkeep

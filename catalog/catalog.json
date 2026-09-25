@@ -1,0 +1,27 @@
+{
+  "catalogVersion": 1,
+  "generatedAt": "2026-09-25T00:00:00Z",
+  "packs": [
+    {
+      "id": "christianity-berean-standard-bible-en",
+      "status": "draft",
+      "faith": "Christianity",
+      "title": "Bible",
+      "translation": "Berean Standard Bible",
+      "language": "en",
+      "license": "CC0 1.0",
+      "attribution": "Berean Standard Bible — public domain dedication (CC0).",
+      "upstream": {
+        "repository": "https://github.com/scrollmapper/bible_databases",
+        "commit": "e1b254cef86d0e65b1a5d1a94b8b112d0f296a2c",
+        "path": "sources/en/BSB",
+        "licenseEvidence": "sources/en/BSB/README.md"
+      },
+      "pack": null,
+      "review": {
+        "state": "pending",
+        "notes": "Do not publish until source files, provenance, conversion, schema validation, and checksum are reviewed."
+      }
+    }
+  ]
+}
