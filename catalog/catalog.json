@@ -25,7 +25,7 @@
     },
     {
       "id": "christianity-world-english-bible-updated-en",
-      "status": "draft",
+      "status": "published",
       "faith": "Christianity",
       "title": "Bible",
       "translation": "World English Bible Updated",
@@ -42,7 +42,7 @@
         "version": 1,
         "sha256": "2d433f94e5b6cddd36006f8f0b130a159a822d6b5612a7808a1ef3ee70266d74",
         "sizeBytes": 5182810,
-        "url": null
+        "url": "https://github.com/alofilibrary/OmniText-content/releases/download/webu-v1/christianity-world-english-bible-updated-en-v1.otpack"
       },
       "review": {
         "state": "approved",
