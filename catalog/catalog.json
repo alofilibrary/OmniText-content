@@ -4,7 +4,7 @@
   "packs": [
     {
       "id": "christianity-berean-standard-bible-en",
-      "status": "draft",
+      "status": "rejected",
       "faith": "Christianity",
       "title": "Bible",
       "translation": "Berean Standard Bible",
@@ -19,8 +19,8 @@
       },
       "pack": null,
       "review": {
-        "state": "pending",
-        "notes": "Do not publish until source files, provenance, conversion, schema validation, and checksum are reviewed."
+        "state": "rejected",
+        "notes": "Rejected at this pinned source: duplicate canonical references have conflicting whitespace variants and source JSON contains Unicode replacement characters. Do not build or publish from this snapshot."
       }
     }
   ]

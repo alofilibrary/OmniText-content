@@ -2,5 +2,10 @@
 packs/*.otpack
 packs/*.db
 
+# Pinned upstream material and generated packs are acquired/built locally for
+# reproducible conversion, but release payloads are never committed to Git.
+.sources/
+dist/
+
 # Keep the directory in Git without checking in payloads.
 !packs/.gitkeep
