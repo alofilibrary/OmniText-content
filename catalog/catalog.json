@@ -48,6 +48,32 @@
         "state": "approved",
         "notes": "Validated locally: 66 books, 31,098 unique non-empty verses, zero replacement characters, and an FTS count matching verse count. Publish only after the Android installer supports format v1."
       }
+    },
+    {
+      "id": "christianity-santa-biblia-libre-mundo-es",
+      "status": "published",
+      "faith": "Christianity",
+      "title": "Bible",
+      "translation": "Santa Biblia libre para el mundo",
+      "language": "es",
+      "license": "CC0 1.0",
+      "attribution": "Santa Biblia libre para el mundo, CC0 1.0. Source: eBible.org and kahunapule/spablm.",
+      "upstream": {
+        "repository": "https://github.com/kahunapule/spablm",
+        "commit": "a741e2b6de48f8c08bab9e003bc4ae8f291bf99f",
+        "path": "chapter-USFM repository export",
+        "licenseEvidence": "LICENSE"
+      },
+      "pack": {
+        "version": 1,
+        "sha256": "0d42d2d17ed1abb60482bb5dc80442cbf19eccf6b7382d0048b91f87d7acee78",
+        "sizeBytes": 4985759,
+        "url": "https://github.com/alofilibrary/OmniText-content/releases/download/spablm-v1/christianity-santa-biblia-libre-mundo-es-v1.otpack"
+      },
+      "review": {
+        "state": "approved",
+        "notes": "Validated locally: 66 canonical books, 31,087 unique non-empty verses, no replacement characters, and an FTS count matching verse count. Source-selected omitted verse markers are not fabricated."
+      }
     }
   ]
 }
