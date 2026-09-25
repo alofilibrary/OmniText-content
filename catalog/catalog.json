@@ -22,6 +22,32 @@
         "state": "rejected",
         "notes": "Rejected at this pinned source: duplicate canonical references have conflicting whitespace variants and source JSON contains Unicode replacement characters. Do not build or publish from this snapshot."
       }
+    },
+    {
+      "id": "christianity-world-english-bible-updated-en",
+      "status": "draft",
+      "faith": "Christianity",
+      "title": "Bible",
+      "translation": "World English Bible Updated",
+      "language": "en",
+      "license": "Public Domain (CC0 1.0)",
+      "attribution": "World English Bible Updated (WEBU), Public Domain. Source: eBible.org.",
+      "upstream": {
+        "repository": "https://github.com/ringletech/webu-open-bible",
+        "commit": "44ce9156b77649adf11c0bbcee89c1d80e2c1f1c",
+        "path": "json/complete-bible.json",
+        "licenseEvidence": "README.md"
+      },
+      "pack": {
+        "version": 1,
+        "sha256": "2d433f94e5b6cddd36006f8f0b130a159a822d6b5612a7808a1ef3ee70266d74",
+        "sizeBytes": 5182810,
+        "url": null
+      },
+      "review": {
+        "state": "approved",
+        "notes": "Validated locally: 66 books, 31,098 unique non-empty verses, zero replacement characters, and an FTS count matching verse count. Publish only after the Android installer supports format v1."
+      }
     }
   ]
 }

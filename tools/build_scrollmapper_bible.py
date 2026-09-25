@@ -26,8 +26,33 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def load_bible(source: Path) -> tuple[list[tuple[int, str]], list[tuple[int, int, int, str]]]:
+def load_flat_bible(payload: list[object], expected_verses: int) -> tuple[list[tuple[int, str]], list[tuple[int, int, int, str]]]:
+    book_ids: dict[str, int] = {}
+    verses: list[tuple[int, int, int, str]] = []
+    seen: set[tuple[int, int, int]] = set()
+    for row in payload:
+        if not isinstance(row, dict):
+            raise ValueError("Flat Bible rows must be objects")
+        name, chapter, verse, text = row.get("book"), row.get("chapter"), row.get("verse"), row.get("text")
+        if not isinstance(name, str) or not isinstance(chapter, int) or not isinstance(verse, int):
+            raise ValueError(f"Invalid flat Bible reference: {row!r}")
+        if not isinstance(text, str) or not text.strip() or "\ufffd" in text:
+            raise ValueError(f"Invalid flat Bible text: {name} {chapter}:{verse}")
+        book_id = book_ids.setdefault(name, len(book_ids) + 1)
+        key = (book_id, chapter, verse)
+        if key in seen:
+            raise ValueError(f"Duplicate flat Bible reference: {name} {chapter}:{verse}")
+        seen.add(key)
+        verses.append((book_id, chapter, verse, text.strip()))
+    if len(book_ids) != 66 or len(verses) != expected_verses:
+        raise ValueError(f"Expected 66 books / {expected_verses} verses, got {len(book_ids)} / {len(verses)}")
+    return [(book_id, name) for name, book_id in book_ids.items()], verses
+
+
+def load_bible(source: Path, expected_verses: int) -> tuple[list[tuple[int, str]], list[tuple[int, int, int, str]]]:
     payload = json.loads(source.read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        return load_flat_bible(payload, expected_verses)
     books = payload.get("books")
     if not isinstance(books, list) or len(books) != 66:
         raise ValueError("Expected exactly 66 books in a Scrollmapper Bible JSON source")
@@ -53,12 +78,12 @@ def load_bible(source: Path) -> tuple[list[tuple[int, str]], list[tuple[int, int
                     raise ValueError(f"Replacement character in source verse: {key!r}")
                 seen.add(key)
                 verses.append((book_id, chapter_number, number, text.strip()))
-    if len(verses) != 31_102:
-        raise ValueError(f"Expected 31,102 verses, got {len(verses)}")
+    if len(verses) != expected_verses:
+        raise ValueError(f"Expected {expected_verses} verses, got {len(verses)}")
     return named_books, verses
 
 
-def load_usfm_bible(source: Path) -> tuple[list[tuple[int, str]], list[tuple[int, int, int, str]]]:
+def load_usfm_bible(source: Path, expected_verses: int) -> tuple[list[tuple[int, str]], list[tuple[int, int, int, str]]]:
     files = sorted(path for path in source.glob("[0-9][0-9]-*.usfm") if not path.name.startswith("00-"))
     if len(files) != 66:
         raise ValueError(f"Expected 66 USFM book files, got {len(files)}")
@@ -113,8 +138,8 @@ def load_usfm_bible(source: Path) -> tuple[list[tuple[int, str]], list[tuple[int
     references = {(book, chapter, verse) for book, chapter, verse, _ in verses}
     if len(references) != len(verses):
         raise ValueError("Duplicate verse reference in USFM source")
-    if len(verses) != 31_102:
-        raise ValueError(f"Expected 31,102 verses, got {len(verses)}")
+    if len(verses) != expected_verses:
+        raise ValueError(f"Expected {expected_verses} verses, got {len(verses)}")
     return books, verses
 
 
@@ -129,7 +154,11 @@ def source_sha256(source: Path) -> str:
 
 
 def build_db(target: Path, source: Path, args: argparse.Namespace) -> dict[str, object]:
-    books, verses = load_usfm_bible(source) if args.source_format == "usfm" else load_bible(source)
+    books, verses = (
+        load_usfm_bible(source, args.expected_verses)
+        if args.source_format == "usfm"
+        else load_bible(source, args.expected_verses)
+    )
     db = sqlite3.connect(target)
     try:
         db.executescript(SCHEMA.read_text(encoding="utf-8"))
@@ -208,6 +237,7 @@ def arguments() -> argparse.Namespace:
     parser.add_argument("--source-path", required=True)
     parser.add_argument("--source-repository", default=SOURCE_REPOSITORY)
     parser.add_argument("--source-commit", default=SOURCE_COMMIT)
+    parser.add_argument("--expected-verses", type=int, required=True)
     parser.add_argument("--pack-id", required=True)
     parser.add_argument("--work-slug", required=True)
     parser.add_argument("--translation", required=True)
